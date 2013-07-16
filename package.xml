@@ -1,13 +1,14 @@
 <package>
   <name>forward_command_controller</name>
-  <version>0.4.0</version>
+  <version>0.5.0</version>
   <description>forward_command_controller</description>
   <maintainer email="adolfo.rodriguez@pal-robotics.com">Adolfo Rodriguez Tsouroukdissian</maintainer>
 
   <license>BSD</license>
 
-  <url type="website">http://ros.org/wiki/forward_command_controller</url>
-  <!-- <url type="bugtracker"></url> -->
+  <url type="website">https://github.com/ros-controls/ros_controllers/wiki</url>
+  <url type="bugtracker">https://github.com/ros-controls/ros_controllers/issues</url>
+  <url type="repository">https://github.com/ros-controls/ros_controllers</url>
 
   <author>Vijay Pradeep</author>
   <author>Adolfo Rodriguez Tsouroukdissian</author>
