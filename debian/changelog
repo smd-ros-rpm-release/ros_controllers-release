@@ -1,0 +1,22 @@
+ros-hydro-ros-controllers (0.5.1-0quantal) quantal; urgency=high
+
+  * Added to maintainer list
+
+ -- Wim Meeussen <wim@hidof.com>  Tue, 16 Jul 2013 07:00:00 -0000
+
+ros-hydro-ros-controllers (0.5.0-0quantal) quantal; urgency=high
+
+  * Added force_torque_sensor_controller
+  * Removed controller_msgs, switched to depend on control_msgs
+  * Added imu_sensor_controller
+  * Updates to effort_controllers
+
+ -- Wim Meeussen <wim@hidof.com>  Tue, 16 Jul 2013 07:00:00 -0000
+
+ros-hydro-ros-controllers (0.4.0-0quantal) quantal; urgency=high
+
+  * Initial release of ros_controllers into bloom/ROS distro
+
+ -- Maintained by Wim Meeussen <wim@hidof.com>  Wed, 26 Jun 2013 07:00:00 -0000
+
+
