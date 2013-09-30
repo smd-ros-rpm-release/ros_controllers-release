@@ -1,3 +1,31 @@
+## ros_controllers - 0.5.4-0
+
+User `dave@ros_monster` released the packages in the `ros_controllers` repository by running `/usr/bin/bloom-release ros_controllers -t hydro -r hydro` on `Mon, 30 Sep 2013 23:50:25 -0000`
+
+These packages were released:
+- `effort_controllers`
+- `force_torque_sensor_controller`
+- `forward_command_controller`
+- `imu_sensor_controller`
+- `joint_state_controller`
+- `joint_trajectory_controller`
+- `position_controllers`
+- `ros_controllers`
+- `velocity_controllers`
+
+Version of package(s) in repository `ros_controllers`:
+- rosdistro version: `0.5.3-0`
+- old version: `0.5.3-0`
+- new version: `0.5.4-0`
+
+Versions of tools used:
+- bloom version: `0.4.4`
+- catkin_pkg version: `0.1.20`
+- rosdep version: `0.10.22`
+- rosdistro version: `0.2.14`
+- vcstools version: `0.1.31`
+
+
 ## ros_controllers - 0.5.3-0
 
 User `adolfo@greece` released the packages in the `ros_controllers` repository by running `/usr/bin/bloom-release ros_controllers --track hydro --rosdistro hydro` on `Thu, 05 Sep 2013 08:53:52 -0000`
