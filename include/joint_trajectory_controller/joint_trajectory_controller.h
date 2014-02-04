@@ -57,6 +57,7 @@
 #include <actionlib/server/action_server.h>
 
 // realtime_tools
+#include <realtime_tools/realtime_box.h>
 #include <realtime_tools/realtime_buffer.h>
 #include <realtime_tools/realtime_publisher.h>
 
@@ -77,9 +78,9 @@ namespace joint_trajectory_controller
 {
 
 /**
- * \brief Controller for executing joint-space trajectories on a set of joints.
+ * \brief Controller for executing joint-space trajectories on a group of joints.
  *
- * TODO: Point to detailed documentation (ros wiki page?)
+ * \note Non-developer documentation and usage instructions can be found in the package's ROS wiki page.
  *
  * \tparam SegmentImpl Trajectory segment representation to use. The type must comply with the following structure:
  * \code
@@ -144,6 +145,7 @@ public:
   /*\}*/
 
 private:
+
   struct TimeData
   {
     TimeData() : time(0.0), period(0.0), uptime(0.0) {}
@@ -165,10 +167,12 @@ private:
   typedef JointTrajectorySegment<SegmentImpl> Segment;
   typedef std::vector<Segment> Trajectory;
   typedef boost::shared_ptr<Trajectory> TrajectoryPtr;
+  typedef realtime_tools::RealtimeBox<TrajectoryPtr> TrajectoryBox;
   typedef typename Segment::Scalar Scalar;
 
   typedef HardwareInterfaceAdapter<HardwareInterface, typename Segment::State> HwIfaceAdapter;
 
+  bool                                         verbose_;            ///< Hard coded verbose flag to help in debugging
   std::string                                  name_;               ///< Controller name.
   std::vector<hardware_interface::JointHandle> joints_;             ///< Handles to controlled joints.
   std::vector<bool>                            angle_wraparound_;   ///< Whether controlled joints wrap around or not.
@@ -179,16 +183,14 @@ private:
   RealtimeGoalHandlePtr                        rt_active_goal_;     ///< Currently active action goal, if any.
 
   /**
-   * Pointer to trajectory currently being followed. Can be either a hold trajectory or a trajectory received from a
-   * ROS message.
+   * Thread-safe container with a smart pointer to trajectory currently being followed.
+   * Can be either a hold trajectory or a trajectory received from a ROS message.
    *
-   * We store separately hold and message trajectories because the \p starting(time) method must be realtime-safe.
-   * Because of this, the (single segment) hold trajectory is be preallocated at initialization time and its size is
-   * kept unchanged.
+   * We store the hold trajectory in a separate class member because the \p starting(time) method must be realtime-safe.
+   * The (single segment) hold trajectory is preallocated at initialization time and its size is kept unchanged.
    */
-  realtime_tools::RealtimeBuffer<Trajectory*>  curr_trajectory_ptr_;
-  TrajectoryPtr                                msg_trajectory_ptr_;  ///< Last trajectory received from a ROS message.
-  TrajectoryPtr                                hold_trajectory_ptr_; ///< Last hold trajectory values.
+  TrajectoryBox curr_trajectory_box_;
+  TrajectoryPtr hold_trajectory_ptr_; ///< Last hold trajectory values.
 
   typename Segment::State current_state_;    ///< Preallocated workspace variable.
   typename Segment::State desired_state_;    ///< Preallocated workspace variable.
@@ -201,7 +203,7 @@ private:
   ros::Duration state_publisher_period_;
   ros::Duration action_monitor_period_;
 
-  typename Segment::Time hold_trajectory_duration_;
+  typename Segment::Time stop_trajectory_duration_;
 
   // ROS API
   ros::NodeHandle    controller_nh_;
