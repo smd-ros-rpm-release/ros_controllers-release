@@ -18,6 +18,7 @@ else()
 
   include_directories(include ${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS})
   add_library(${PROJECT_NAME} src/joint_state_controller.cpp)
+  target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 
   # Declare catkin package
   catkin_package(
@@ -36,7 +37,7 @@ else()
     RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
     )
 
-  install(FILES joint_state_plugin.xml
+  install(FILES joint_state_plugin.xml joint_state_controller.yaml
     DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 
 endif()
