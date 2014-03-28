@@ -2,6 +2,9 @@
 Changelog for package imu_sensor_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.7.0 (2014-03-28)
+------------------
+
 0.6.0 (2014-02-05)
 ------------------
 * Install default config files
