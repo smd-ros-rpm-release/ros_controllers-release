@@ -1,0 +1,8 @@
+ros-hydro-gripper-action-controller (0.7.0-0raring) raring; urgency=high
+
+  * gripper_action_controller: New controller for single dof grippers.
+  * Contributors: Sachin Chitta.
+
+ -- Sachin Chitta <robot.moveit@gmail.com>  Thu, 27 Mar 2014 23:00:00 -0000
+
+
