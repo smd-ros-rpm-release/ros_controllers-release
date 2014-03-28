@@ -1,3 +1,33 @@
+## ros_controllers (hydro) - 0.7.0-0
+
+User `adolfo@greece` released the packages in the `ros_controllers` repository into the `hydro` distro by running `/usr/bin/bloom-release ros_controllers --track hydro --rosdistro hydro` on `Fri, 28 Mar 2014 10:36:31 -0000`
+
+These packages were released:
+- `diff_drive_controller`
+- `effort_controllers`
+- `force_torque_sensor_controller`
+- `forward_command_controller`
+- `gripper_action_controller`
+- `imu_sensor_controller`
+- `joint_state_controller`
+- `joint_trajectory_controller`
+- `position_controllers`
+- `ros_controllers`
+- `velocity_controllers`
+
+Version of package(s) in repository `ros_controllers`:
+- rosdistro version: `0.6.0-0`
+- old version: `0.6.0-0`
+- new version: `0.7.0-0`
+
+Versions of tools used:
+- bloom version: `0.5.2`
+- catkin_pkg version: `0.1.25`
+- rosdep version: `0.10.25`
+- rosdistro version: `0.3.3`
+- vcstools version: `0.1.33`
+
+
 ## ros_controllers - 0.6.0-0
 
 User `dave@dave-ubuntu` released the packages in the `ros_controllers` repository by running `/usr/bin/bloom-release ros_controllers -t hydro -r hydro` on `Tue, 04 Feb 2014 23:49:17 -0000`
