@@ -2,6 +2,9 @@
 Changelog for package joint_trajectory_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.7.1 (2014-03-31)
+------------------
+
 0.7.0 (2014-03-28)
 ------------------
 * Add support for an joint interfaces are not inherited from JointHandle.
