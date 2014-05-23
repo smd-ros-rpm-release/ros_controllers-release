@@ -138,9 +138,6 @@ namespace diff_drive_controller{
     /// Timeout to consider cmd_vel commands old:
     double cmd_vel_timeout_;
 
-    /// Frame to use for the robot base:
-    std::string base_frame_id_;
-
     // speed limiters
     Commands last_cmd_;
     SpeedLimiter limiter_lin_;
