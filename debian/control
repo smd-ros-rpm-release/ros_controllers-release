@@ -1,0 +1,12 @@
+Source: ros-indigo-velocity-controllers
+Section: misc
+Priority: extra
+Maintainer: Vijay Pradeep <vijay@hidof.com>
+Build-Depends: debhelper (>= 9.0.0), ros-indigo-catkin, ros-indigo-controller-interface, ros-indigo-forward-command-controller
+Homepage: https://github.com/ros-controls/ros_controllers/wiki
+Standards-Version: 3.9.2
+
+Package: ros-indigo-velocity-controllers
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-indigo-controller-interface, ros-indigo-forward-command-controller
+Description: velocity_controllers
