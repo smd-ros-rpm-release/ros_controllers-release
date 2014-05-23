@@ -1,30 +1,19 @@
-cmake_minimum_required(VERSION 2.8.3)
-project(position_controllers)
+cmake_minimum_required(VERSION 2.4.6)
+include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 
-# Load catkin and all dependencies required for this package
-find_package(catkin REQUIRED COMPONENTS controller_interface forward_command_controller)
+set(ROSPACK_MAKEDIST true)
 
-include_directories(include ${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS})
-add_library(${PROJECT_NAME}
-  src/joint_position_controller.cpp include/position_controllers/joint_position_controller.h)
-target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
+# Append to CPACK_SOURCE_IGNORE_FILES a semicolon-separated list of
+# directories (or patterns, but directories should suffice) that should
+# be excluded from the distro.  This is not the place to put things that
+# should be ignored everywhere, like "build" directories; that happens in
+# rosbuild/rosbuild.cmake.  Here should be listed packages that aren't
+# ready for inclusion in a distro.
+#
+# This list is combined with the list in rosbuild/rosbuild.cmake.  Note
+# that CMake 2.6 may be required to ensure that the two lists are combined
+# properly.  CMake 2.4 seems to have unpredictable scoping rules for such
+# variables.
+#list(APPEND CPACK_SOURCE_IGNORE_FILES /core/experimental)
 
-# Declare catkin project
-catkin_package(
-    CATKIN_DEPENDS controller_interface forward_command_controller
-    INCLUDE_DIRS include
-    LIBRARIES ${PROJECT_NAME}
-)
-
-# Install
-install(DIRECTORY include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
-
-install(TARGETS ${PROJECT_NAME}
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-  )
-
-install(FILES position_controllers_plugins.xml
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+rosbuild_make_distribution(0.0.2)
