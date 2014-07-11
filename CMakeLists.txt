@@ -20,22 +20,6 @@ find_package(catkin
     xacro
 )
 
-include_directories(include ${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS})
-
-add_library(${PROJECT_NAME} src/joint_trajectory_controller.cpp
-                            include/joint_trajectory_controller/hardware_interface_adapter.h
-                            include/joint_trajectory_controller/init_joint_trajectory.h
-                            include/joint_trajectory_controller/joint_trajectory_controller.h
-                            include/joint_trajectory_controller/joint_trajectory_controller_impl.h
-                            include/joint_trajectory_controller/joint_trajectory_msg_utils.h
-                            include/joint_trajectory_controller/joint_trajectory_segment.h
-                            include/joint_trajectory_controller/tolerances.h
-                            include/trajectory_interface/trajectory_interface.h
-                            include/trajectory_interface/quintic_spline_segment.h
-                            include/trajectory_interface/pos_vel_acc_state.h)
-
-target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
-
 # Declare catkin package
 catkin_package(
   CATKIN_DEPENDS
@@ -56,35 +40,54 @@ catkin_package(
   LIBRARIES ${PROJECT_NAME}
 )
 
-catkin_add_gtest(quintic_spline_segment_test test/quintic_spline_segment_test.cpp)
-target_link_libraries(quintic_spline_segment_test ${catkin_LIBRARIES})
+include_directories(include ${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS})
 
-catkin_add_gtest(trajectory_interface_test test/trajectory_interface_test.cpp)
-target_link_libraries(trajectory_interface_test ${catkin_LIBRARIES})
+add_library(${PROJECT_NAME} src/joint_trajectory_controller.cpp
+                            include/joint_trajectory_controller/hardware_interface_adapter.h
+                            include/joint_trajectory_controller/init_joint_trajectory.h
+                            include/joint_trajectory_controller/joint_trajectory_controller.h
+                            include/joint_trajectory_controller/joint_trajectory_controller_impl.h
+                            include/joint_trajectory_controller/joint_trajectory_msg_utils.h
+                            include/joint_trajectory_controller/joint_trajectory_segment.h
+                            include/joint_trajectory_controller/tolerances.h
+                            include/trajectory_interface/trajectory_interface.h
+                            include/trajectory_interface/quintic_spline_segment.h
+                            include/trajectory_interface/pos_vel_acc_state.h)
 
-catkin_add_gtest(joint_trajectory_segment_test test/joint_trajectory_segment_test.cpp)
-target_link_libraries(joint_trajectory_segment_test ${catkin_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 
-catkin_add_gtest(joint_trajectory_msg_utils_test test/joint_trajectory_msg_utils_test.cpp)
-target_link_libraries(joint_trajectory_msg_utils_test ${catkin_LIBRARIES})
 
-catkin_add_gtest(init_joint_trajectory_test test/init_joint_trajectory_test.cpp)
-target_link_libraries(init_joint_trajectory_test ${catkin_LIBRARIES})
+if(CATKIN_ENABLE_TESTING)
+  catkin_add_gtest(quintic_spline_segment_test test/quintic_spline_segment_test.cpp)
+  target_link_libraries(quintic_spline_segment_test ${catkin_LIBRARIES})
 
-add_rostest_gtest(tolerances_test
+  catkin_add_gtest(trajectory_interface_test test/trajectory_interface_test.cpp)
+  target_link_libraries(trajectory_interface_test ${catkin_LIBRARIES})
+
+  catkin_add_gtest(joint_trajectory_segment_test test/joint_trajectory_segment_test.cpp)
+  target_link_libraries(joint_trajectory_segment_test ${catkin_LIBRARIES})
+
+  catkin_add_gtest(joint_trajectory_msg_utils_test test/joint_trajectory_msg_utils_test.cpp)
+  target_link_libraries(joint_trajectory_msg_utils_test ${catkin_LIBRARIES})
+
+  catkin_add_gtest(init_joint_trajectory_test test/init_joint_trajectory_test.cpp)
+  target_link_libraries(init_joint_trajectory_test ${catkin_LIBRARIES})
+
+  add_rostest_gtest(tolerances_test
                   test/tolerances.test
                   test/tolerances_test.cpp)
-target_link_libraries(tolerances_test ${catkin_LIBRARIES})
+  target_link_libraries(tolerances_test ${catkin_LIBRARIES})
 
-add_executable(rrbot test/rrbot.cpp)
-target_link_libraries(rrbot ${catkin_LIBRARIES})
+  add_executable(rrbot test/rrbot.cpp)
+  target_link_libraries(rrbot ${catkin_LIBRARIES})
 
-add_dependencies(tests rrbot)
+  add_dependencies(tests rrbot)
 
-add_rostest_gtest(joint_trajectory_controller_test
-                  test/joint_trajectory_controller.test
-                  test/joint_trajectory_controller_test.cpp)
-target_link_libraries(joint_trajectory_controller_test ${catkin_LIBRARIES})
+  add_rostest_gtest(joint_trajectory_controller_test
+                    test/joint_trajectory_controller.test
+                    test/joint_trajectory_controller_test.cpp)
+  target_link_libraries(joint_trajectory_controller_test ${catkin_LIBRARIES})
+endif()
 
 # Install
 install(DIRECTORY include/${PROJECT_NAME}/
