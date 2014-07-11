@@ -2,6 +2,9 @@
 Changelog for package joint_state_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.8.1 (2014-07-11)
+------------------
+
 0.8.0 (2014-05-12)
 ------------------
 * Add missing controller resources to install target
