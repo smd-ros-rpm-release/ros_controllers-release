@@ -1,0 +1,28 @@
+ros-hydro-gripper-action-controller (0.7.3-0raring) raring; urgency=high
+
+  * Drop unneeded rostest dependency
+  * Contributors: Lukas Bulwahn
+
+ -- Sachin Chitta <robot.moveit@gmail.com>  Mon, 27 Oct 2014 23:00:00 -0000
+
+ros-hydro-gripper-action-controller (0.7.2-0raring) raring; urgency=high
+
+  * Added missing deps to package.xml
+  * Contributors: Scott K Logan
+
+ -- Sachin Chitta <robot.moveit@gmail.com>  Mon, 31 Mar 2014 22:00:00 -0000
+
+ros-hydro-gripper-action-controller (0.7.1-0raring) raring; urgency=high
+
+
+
+ -- Sachin Chitta <robot.moveit@gmail.com>  Sun, 30 Mar 2014 22:00:00 -0000
+
+ros-hydro-gripper-action-controller (0.7.0-0raring) raring; urgency=high
+
+  * gripper_action_controller: New controller for single dof grippers.
+  * Contributors: Sachin Chitta.
+
+ -- Sachin Chitta <robot.moveit@gmail.com>  Thu, 27 Mar 2014 23:00:00 -0000
+
+
