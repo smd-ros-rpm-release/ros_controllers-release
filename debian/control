@@ -1,0 +1,12 @@
+Source: ros-hydro-ros-controllers
+Section: misc
+Priority: extra
+Maintainer: Wim Meeussen <wim@hidof.com>
+Build-Depends: debhelper (>= 9.0.0), ros-hydro-catkin
+Homepage: http://ros.org/wiki/ros_controllers
+Standards-Version: 3.9.2
+
+Package: ros-hydro-ros-controllers
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-hydro-diff-drive-controller, ros-hydro-effort-controllers, ros-hydro-force-torque-sensor-controller, ros-hydro-forward-command-controller, ros-hydro-gripper-action-controller, ros-hydro-imu-sensor-controller, ros-hydro-joint-state-controller, ros-hydro-joint-trajectory-controller, ros-hydro-position-controllers, ros-hydro-velocity-controllers
+Description: Library of ros controllers
