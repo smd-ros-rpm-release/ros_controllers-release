@@ -61,9 +61,27 @@ else()
       realtime_tools
       control_msgs
       trajectory_msgs
-      rostest
       controller_manager
       xacro
+  )
+
+  # Declare catkin package
+  catkin_package(
+    CATKIN_DEPENDS
+    actionlib
+    angles
+    roscpp
+    urdf
+    control_toolbox
+    controller_interface
+    hardware_interface
+    realtime_tools
+    control_msgs
+    trajectory_msgs
+    controller_manager
+    xacro
+    INCLUDE_DIRS include
+    LIBRARIES ${PROJECT_NAME}
   )
 
   include_directories(include ${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS})
@@ -82,59 +100,47 @@ else()
 
   target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 
-  # Declare catkin package
-  catkin_package(
-    CATKIN_DEPENDS
-    actionlib
-    angles
-    roscpp
-    urdf
-    control_toolbox
-    controller_interface
-    hardware_interface
-    realtime_tools
-    control_msgs
-    trajectory_msgs
-    rostest
-    controller_manager
-    xacro
-    INCLUDE_DIRS include
-    LIBRARIES ${PROJECT_NAME}
-  )
+  if(CATKIN_ENABLE_TESTING)
+    find_package(rostest) 
 
-  catkin_add_gtest(quintic_spline_segment_test test/quintic_spline_segment_test.cpp)
-  target_link_libraries(quintic_spline_segment_test ${catkin_LIBRARIES})
+    catkin_add_gtest(quintic_spline_segment_test test/quintic_spline_segment_test.cpp)
+    target_link_libraries(quintic_spline_segment_test ${catkin_LIBRARIES})
 
-  catkin_add_gtest(trajectory_interface_test test/trajectory_interface_test.cpp)
-  target_link_libraries(trajectory_interface_test ${catkin_LIBRARIES})
+    catkin_add_gtest(trajectory_interface_test test/trajectory_interface_test.cpp)
+    target_link_libraries(trajectory_interface_test ${catkin_LIBRARIES})
 
-  catkin_add_gtest(joint_trajectory_segment_test test/joint_trajectory_segment_test.cpp)
-  target_link_libraries(joint_trajectory_segment_test ${catkin_LIBRARIES})
+    catkin_add_gtest(joint_trajectory_segment_test test/joint_trajectory_segment_test.cpp)
+    target_link_libraries(joint_trajectory_segment_test ${catkin_LIBRARIES})
 
-  catkin_add_gtest(joint_trajectory_msg_utils_test test/joint_trajectory_msg_utils_test.cpp)
-  target_link_libraries(joint_trajectory_msg_utils_test ${catkin_LIBRARIES})
+    catkin_add_gtest(joint_trajectory_msg_utils_test test/joint_trajectory_msg_utils_test.cpp)
+    target_link_libraries(joint_trajectory_msg_utils_test ${catkin_LIBRARIES})
 
-  catkin_add_gtest(init_joint_trajectory_test test/init_joint_trajectory_test.cpp)
-  target_link_libraries(init_joint_trajectory_test ${catkin_LIBRARIES})
+    catkin_add_gtest(init_joint_trajectory_test test/init_joint_trajectory_test.cpp)
+    target_link_libraries(init_joint_trajectory_test ${catkin_LIBRARIES})
 
-  add_rostest_gtest(tolerances_test
-                    test/tolerances.test
-                    test/tolerances_test.cpp)
-  target_link_libraries(tolerances_test ${catkin_LIBRARIES})
+    add_rostest_gtest(tolerances_test
+                      test/tolerances.test
+                      test/tolerances_test.cpp)
+    target_link_libraries(tolerances_test ${catkin_LIBRARIES})
 
-  add_executable(rrbot test/rrbot.cpp)
-  target_link_libraries(rrbot ${catkin_LIBRARIES})
+    add_executable(rrbot test/rrbot.cpp)
+    target_link_libraries(rrbot ${catkin_LIBRARIES})
 
-  add_dependencies(tests rrbot)
+    add_dependencies(tests rrbot)
+    add_dependencies(tests ${PROJECT_NAME})
 
-  add_rostest_gtest(joint_trajectory_controller_test
-                    test/joint_trajectory_controller.test
-                    test/joint_trajectory_controller_test.cpp)
-  target_link_libraries(joint_trajectory_controller_test ${catkin_LIBRARIES})
+    add_rostest_gtest(joint_trajectory_controller_test
+                      test/joint_trajectory_controller.test
+                      test/joint_trajectory_controller_test.cpp)
+    target_link_libraries(joint_trajectory_controller_test ${catkin_LIBRARIES})
+  endif()
 
   # Install
   install(DIRECTORY include/${PROJECT_NAME}/
     DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
+
+  install(DIRECTORY include/trajectory_interface/
+    DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}/trajectory_interface/)
 
   install(TARGETS ${PROJECT_NAME}
     ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
