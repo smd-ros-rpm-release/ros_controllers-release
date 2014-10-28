@@ -1,0 +1,34 @@
+ros-hydro-diff-drive-controller (0.7.3-0quantal) quantal; urgency=high
+
+  * Add base_frame_id param (defaults to base_link)
+  * Contributors: enriquefernandez
+
+ -- Bence Magyar <bence.magyar@pal-robotics.com>  Mon, 27 Oct 2014 23:00:00 -0000
+
+ros-hydro-diff-drive-controller (0.7.2-0quantal) quantal; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar@pal-robotics.com>  Mon, 31 Mar 2014 22:00:00 -0000
+
+ros-hydro-diff-drive-controller (0.7.1-0quantal) quantal; urgency=high
+
+  * Changed test-depend to build-depend for release jobs.
+  * Contributors: Bence Magyar
+
+ -- Bence Magyar <bence.magyar@pal-robotics.com>  Sun, 30 Mar 2014 22:00:00 -0000
+
+ros-hydro-diff-drive-controller (0.7.0-0quantal) quantal; urgency=high
+
+  * diff_drive_controller: New controller for differential drive wheel systems.
+  * Control is in the form of a velocity command, that is split then sent on the two wheels of a differential drive
+  wheel base.
+  * Odometry is published to tf and to a dedicated nav__msgs/Odometry topic.
+  * Realtime-safe implementation.
+  * Implements task-space velocity and acceleration limits.
+  * Automatic stop after command time-out.
+  * Contributors: Bence Magyar, Paul Mathieu, Enrique Fernandez.
+
+ -- Bence Magyar <bence.magyar@pal-robotics.com>  Thu, 27 Mar 2014 23:00:00 -0000
+
+
