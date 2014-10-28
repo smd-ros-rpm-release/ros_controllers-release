@@ -1,0 +1,12 @@
+Source: ros-hydro-effort-controllers
+Section: misc
+Priority: extra
+Maintainer: Vijay Pradeep <vijay@hidof.com>
+Build-Depends: debhelper (>= 9.0.0), ros-hydro-catkin, ros-hydro-control-msgs, ros-hydro-control-toolbox, ros-hydro-controller-interface, ros-hydro-dynamic-reconfigure, ros-hydro-forward-command-controller, ros-hydro-realtime-tools, ros-hydro-urdf
+Homepage: https://github.com/ros-controls/ros_controllers/wiki
+Standards-Version: 3.9.2
+
+Package: ros-hydro-effort-controllers
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-hydro-control-msgs, ros-hydro-control-toolbox, ros-hydro-controller-interface, ros-hydro-dynamic-reconfigure, ros-hydro-forward-command-controller, ros-hydro-realtime-tools, ros-hydro-urdf
+Description: effort_controllers
