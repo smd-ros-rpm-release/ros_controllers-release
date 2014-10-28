@@ -1,0 +1,12 @@
+Source: ros-hydro-diff-drive-controller
+Section: misc
+Priority: extra
+Maintainer: Bence Magyar <bence.magyar@pal-robotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-hydro-angles, ros-hydro-catkin, ros-hydro-controller-interface, ros-hydro-controller-manager, ros-hydro-nav-msgs, ros-hydro-realtime-tools, ros-hydro-rostest, ros-hydro-tf, ros-hydro-urdf, ros-hydro-xacro
+Homepage: https://github.com/ros-controls/ros_controllers/wiki
+Standards-Version: 3.9.2
+
+Package: ros-hydro-diff-drive-controller
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-hydro-controller-interface, ros-hydro-nav-msgs, ros-hydro-realtime-tools, ros-hydro-tf, ros-hydro-urdf
+Description: Controller for a differential drive mobile base.
