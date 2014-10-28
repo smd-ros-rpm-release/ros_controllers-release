@@ -2,6 +2,11 @@
 Changelog for package force_torque_sensor_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.7.3 (2014-10-28)
+------------------
+* Add missing controller resources to install target
+* Contributors: Adolfo Rodriguez Tsouroukdissian
+
 0.7.2 (2014-04-01)
 ------------------
 
