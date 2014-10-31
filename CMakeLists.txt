@@ -1,33 +1,19 @@
-cmake_minimum_required(VERSION 2.8.3)
-project(imu_sensor_controller)
+cmake_minimum_required(VERSION 2.4.6)
+include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 
-# Load catkin and all dependencies required for this package
-find_package(catkin REQUIRED COMPONENTS controller_interface hardware_interface sensor_msgs realtime_tools)
+set(ROSPACK_MAKEDIST true)
 
-include_directories(include ${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS})
+# Append to CPACK_SOURCE_IGNORE_FILES a semicolon-separated list of
+# directories (or patterns, but directories should suffice) that should
+# be excluded from the distro.  This is not the place to put things that
+# should be ignored everywhere, like "build" directories; that happens in
+# rosbuild/rosbuild.cmake.  Here should be listed packages that aren't
+# ready for inclusion in a distro.
+#
+# This list is combined with the list in rosbuild/rosbuild.cmake.  Note
+# that CMake 2.6 may be required to ensure that the two lists are combined
+# properly.  CMake 2.4 seems to have unpredictable scoping rules for such
+# variables.
+#list(APPEND CPACK_SOURCE_IGNORE_FILES /core/experimental)
 
-add_library(${PROJECT_NAME}
-  src/imu_sensor_controller.cpp include/imu_sensor_controller/imu_sensor_controller.h)
-target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
-
-# Declare catkin package
-catkin_package(
-  CATKIN_DEPENDS controller_interface hardware_interface sensor_msgs realtime_tools
-  INCLUDE_DIRS include
-  LIBRARIES ${PROJECT_NAME}
-  )
-
-# Install
-install(DIRECTORY include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
-
-install(TARGETS ${PROJECT_NAME}
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-  )
-
-install(FILES imu_sensor_plugin.xml
-              imu_sensor_controller.yaml
-              imu_sensor_controller.launch
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+rosbuild_make_distribution(0.0.2)
