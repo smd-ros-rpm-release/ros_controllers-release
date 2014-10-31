@@ -2,8 +2,19 @@
 Changelog for package forward_command_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.7.3 (2014-10-28)
+0.9.0 (2014-10-31)
 ------------------
+* ForwardJointGroupCommandController: Class for implementing multi-joint
+  command-forwarding controllers
+* Contributors: ipa-fxm
+
+0.8.1 (2014-07-11)
+------------------
+
+0.8.0 (2014-05-12)
+------------------
+* Remove rosbuild artifacts. Fix `#90 <https://github.com/ros-controls/ros_controllers/issues/90>`_.
+* Contributors: Adolfo Rodriguez Tsouroukdissian
 
 0.7.2 (2014-04-01)
 ------------------

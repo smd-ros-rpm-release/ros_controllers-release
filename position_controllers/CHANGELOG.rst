@@ -2,8 +2,20 @@
 Changelog for package position_controllers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.7.3 (2014-10-28)
+0.9.0 (2014-10-31)
 ------------------
+* New controller: position_controllers/JointGroupPositionController (multi-joint)
+* Hold position when starting JointPositionController and JointGroupPositionController
+* Buildsystem fixes
+* Contributors: Dave Coleman, ipa-fxm
+
+0.8.1 (2014-07-11)
+------------------
+
+0.8.0 (2014-05-12)
+------------------
+* Remove rosbuild artifacts. Fix `#90 <https://github.com/ros-controls/ros_controllers/issues/90>`_.
+* Contributors: Adolfo Rodriguez Tsouroukdissian
 
 0.7.2 (2014-04-01)
 ------------------

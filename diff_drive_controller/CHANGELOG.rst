@@ -2,9 +2,27 @@
 Changelog for package diff_drive_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.7.3 (2014-10-28)
+0.9.0 (2014-10-31)
+------------------
+* Add support for multiple wheels per side
+* Odometry computation:
+  - New option to compute in open loop fashion
+  - New option to skip publishing odom frame to tf
+* Remove dependency on angles package
+* Buildsystem fixes
+* Contributors: Bence Magyar, Lukas Bulwahn, efernandez
+
+0.8.1 (2014-07-11)
+------------------
+
+0.8.0 (2014-05-12)
 ------------------
 * Add base_frame_id param (defaults to base_link)
+  The nav_msgs/Odometry message specifies the child_frame_id field,
+  which was previously not set.
+  This commit creates a parameter to replace the previously hard-coded
+  value of the child_frame_id of the published tf frame, and uses it
+  in the odom message as well.
 * Contributors: enriquefernandez
 
 0.7.2 (2014-04-01)
