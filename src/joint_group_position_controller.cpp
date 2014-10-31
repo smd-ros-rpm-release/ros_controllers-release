@@ -4,6 +4,7 @@
  *  Copyright (c) 2008, Willow Garage, Inc.
  *  Copyright (c) 2012, hiDOF, Inc.
  *  Copyright (c) 2013, PAL Robotics, S.L.
+ *  Copyright (c) 2014, Fraunhofer IPA
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -34,14 +35,19 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  *********************************************************************/
 
-#include <position_controllers/joint_position_controller.h>
+#include <position_controllers/joint_group_position_controller.h>
 #include <pluginlib/class_list_macros.h>
 
 template <class T>
-void forward_command_controller::ForwardCommandController<T>::starting(const ros::Time& time)
+void forward_command_controller::ForwardJointGroupCommandController<T>::starting(const ros::Time& time)
 {
-  // Start controller with current joint position
-  command_ = joint_.getPosition();
+  // Start controller with current joint positions
+  commands_.resize(n_joints_, 0.0);
+  for(unsigned int i=0; i<joints_.size(); i++)
+  {
+    commands_[i]=joints_[i].getPosition();
+  }
 }
 
-PLUGINLIB_EXPORT_CLASS(position_controllers::JointPositionController,controller_interface::ControllerBase)
+
+PLUGINLIB_EXPORT_CLASS(position_controllers::JointGroupPositionController,controller_interface::ControllerBase)
