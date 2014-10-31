@@ -4,6 +4,7 @@
  *  Copyright (c) 2008, Willow Garage, Inc.
  *  Copyright (c) 2012, hiDOF, Inc.
  *  Copyright (c) 2013, PAL Robotics, S.L.
+ *  Copyright (c) 2014, Fraunhofer IPA
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -34,14 +35,29 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  *********************************************************************/
 
-#include <position_controllers/joint_position_controller.h>
-#include <pluginlib/class_list_macros.h>
+#ifndef POSITION_CONTROLLERS_JOINT_GROUP_POSITION_CONTROLLER_H
+#define POSITION_CONTROLLERS_JOINT_GROUP_POSITION_CONTROLLER_H
 
-template <class T>
-void forward_command_controller::ForwardCommandController<T>::starting(const ros::Time& time)
+#include <forward_command_controller/forward_joint_group_command_controller.h>
+
+namespace position_controllers
 {
-  // Start controller with current joint position
-  command_ = joint_.getPosition();
+
+/**
+ * \brief Forward command controller for a set of position controlled joints (linear or angular).
+ *
+ * This class forwards the commanded positions down to a set of joints.
+ *
+ * \section ROS interface
+ *
+ * \param type Must be "JointGroupPositionController".
+ * \param joints List of names of the joints to control.
+ *
+ * Subscribes to:
+ * - \b command (std_msgs::Float64MultiArray) : The joint positions to apply
+ */
+typedef forward_command_controller::ForwardJointGroupCommandController<hardware_interface::PositionJointInterface>
+        JointGroupPositionController;
 }
 
-PLUGINLIB_EXPORT_CLASS(position_controllers::JointPositionController,controller_interface::ControllerBase)
+#endif
