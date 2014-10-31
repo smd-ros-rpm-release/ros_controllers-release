@@ -4,6 +4,7 @@
  *  Copyright (c) 2008, Willow Garage, Inc.
  *  Copyright (c) 2012, hiDOF, Inc.
  *  Copyright (c) 2013, PAL Robotics, S.L.
+ *  Copyright (c) 2014, Fraunhofer IPA
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -34,15 +35,15 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  *********************************************************************/
 
-#include <effort_controllers/joint_effort_controller.h>
+#include <effort_controllers/joint_group_effort_controller.h>
 #include <pluginlib/class_list_macros.h>
 
 template <class T>
-void forward_command_controller::ForwardCommandController<T>::starting(const ros::Time& time)
+void forward_command_controller::ForwardJointGroupCommandController<T>::starting(const ros::Time& time)
 {
-  // Start controller with 0.0 effort
-  command_ = 0.0;
+  // Start controller with 0.0 efforts
+  commands_.resize(n_joints_, 0.0);
 }
 
 
-PLUGINLIB_EXPORT_CLASS(effort_controllers::JointEffortController,controller_interface::ControllerBase)
+PLUGINLIB_EXPORT_CLASS(effort_controllers::JointGroupEffortController,controller_interface::ControllerBase)
