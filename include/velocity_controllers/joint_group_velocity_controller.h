@@ -4,6 +4,7 @@
  *  Copyright (c) 2008, Willow Garage, Inc.
  *  Copyright (c) 2012, hiDOF, Inc.
  *  Copyright (c) 2013, PAL Robotics, S.L.
+ *  Copyright (c) 2014, Fraunhofer IPA
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -34,15 +35,30 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  *********************************************************************/
 
-#include <velocity_controllers/joint_velocity_controller.h>
-#include <pluginlib/class_list_macros.h>
+#ifndef VELOCITY_CONTROLLERS_JOINT_GROUP_VELOCITY_CONTROLLER_H
+#define VELOCITY_CONTROLLERS_JOINT_GROUP_VELOCITY_CONTROLLER_H
 
-template <class T>
-void forward_command_controller::ForwardCommandController<T>::starting(const ros::Time& time)
+#include <forward_command_controller/forward_joint_group_command_controller.h>
+
+namespace velocity_controllers
 {
-  // Start controller with 0.0 velocity
-  command_ = 0.0;
+
+/**
+ * \brief Forward command controller for a set of velocity controlled joints (linear or angular).
+ *
+ * This class forwards the commanded velocities down to a set of joints.
+ *
+ * \section ROS interface
+ *
+ * \param type Must be "JointGroupVelocityController".
+ * \param joints List of names of the joints to control.
+ *
+ * Subscribes to:
+ * - \b command (std_msgs::Float64MultiArray) : The joint velocities to apply
+ */
+typedef forward_command_controller::ForwardJointGroupCommandController<hardware_interface::VelocityJointInterface>
+        JointGroupVelocityController;
+
 }
 
-
-PLUGINLIB_EXPORT_CLASS(velocity_controllers::JointVelocityController,controller_interface::ControllerBase)
+#endif
