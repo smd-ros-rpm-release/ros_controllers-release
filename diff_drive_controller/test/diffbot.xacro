@@ -3,8 +3,10 @@
 <!--
 Robot model taken from http://wiki.ros.org/pr2_mechanism/Tutorials/SImple%20URDF-Controller%20Example
 -->
+  <xacro:include filename="$(find diff_drive_controller)/test/wheel.xacro"/>
+  <xacro:property name="deg_to_rad" value="0.01745329251994329577"/>
+
   <!-- Constants for robot dimensions -->
-  <xacro:property name="PI" value="3.1415926535897931"/>
   <xacro:property name="width" value="0.5" /> <!-- Square dimensions (widthxwidth) of beams -->
   <xacro:property name="wheel_radius" value="0.11" /> <!-- Link 1 -->
   <xacro:property name="thickness" value="0.086" /> <!-- Link 2 -->
@@ -53,86 +55,18 @@ Robot model taken from http://wiki.ros.org/pr2_mechanism/Tutorials/SImple%20URDF
   </joint>
 
 
-  <link name="wheel1">
-    <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <mass value="1"/>
-      <inertia ixx="0.2" ixy="0" ixz="0" iyy="0.2" iyz="0" izz="0.2"/>
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 ${PI/2} 0"/>
-      <geometry>
-        <cylinder radius="${wheel_radius}" length="${thickness}"/>
-      </geometry>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 ${PI/2} 0"/>
-      <geometry>
-        <cylinder radius="${wheel_radius}" length="${thickness}"/>
-      </geometry>
-    </collision>
-  </link>
-  <joint name="joint_w1" type="continuous">
-    <parent link="base_link"/>
-    <child link="wheel1"/>
-    <origin xyz="${width/2+axel_offset} 0 0" rpy="${-PI/2} 0 0"/>
-    <axis xyz="0 1 0"/>
-  </joint>
+  <!-- Wheels -->
+  <wheel name="wheel_0" parent="base" radius="${wheel_radius}" thickness="${thickness}">
+    <origin xyz="${width/2+axel_offset} 0 0" rpy="${-90 * deg_to_rad} 0 0"/>
+  </wheel>
+  <wheel name="wheel_1" parent="base" radius="${wheel_radius}" thickness="${thickness}">
+    <origin xyz="${-width/2+axel_offset} 0 0" rpy="${-90 * deg_to_rad} 0 0"/>
+  </wheel>
 
-
-  <link name="wheel2">
-    <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <mass value="1"/>
-      <inertia ixx="0.2" ixy="0" ixz="0" iyy="0.2" iyz="0" izz="0.2"/>
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 ${PI/2} 0"/>
-      <geometry>
-        <cylinder radius="${wheel_radius}" length="${thickness}"/>
-      </geometry>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 ${PI/2} 0"/>
-      <geometry>
-        <cylinder radius="${wheel_radius}" length="${thickness}"/>
-      </geometry>
-    </collision>
-  </link>
-  <joint name="joint_w2" type="continuous">
-    <parent link="base_link"/>
-    <child link="wheel2"/>
-    <origin xyz="${-width/2-axel_offset} 0 0" rpy="${-PI/2} 0 0"/>
-    <axis xyz="0 1 0"/>
-  </joint>
-
-
-  <!-- Transmission is important to link the joints and the controller -->
-  <transmission name="joint_w1_trans" type="SimpleTransmission">
-    <actuator name="joint_w1_motor" />
-    <joint name="joint_w1" />
-    <mechanicalReduction>1</mechanicalReduction>
-    <motorTorqueConstant>1</motorTorqueConstant>
-  </transmission>
-
-  <transmission name="joint_w2_trans" type="SimpleTransmission">
-    <actuator name="joint_w2_motor" />
-    <joint name="joint_w2" />
-    <mechanicalReduction>1</mechanicalReduction>
-    <motorTorqueConstant>1</motorTorqueConstant>
-  </transmission>
 
   <!-- Colour -->
   <gazebo reference="base_link">
     <material>Gazebo/Green</material>
-  </gazebo>
-
-  <gazebo reference="wheel1">
-    <material>Gazebo/Red</material>
-  </gazebo>
-
-  <gazebo reference="wheel2">
-    <material>Gazebo/Blue</material>
   </gazebo>
 
   <gazebo reference="base_footprint">
