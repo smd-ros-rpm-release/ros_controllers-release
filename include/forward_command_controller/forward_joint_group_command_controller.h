@@ -5,6 +5,7 @@
  *  Copyright (c) 2008, Willow Garage, Inc.
  *  Copyright (c) 2012, hiDOF, Inc.
  *  Copyright (c) 2013, PAL Robotics, S.L.
+ *  Copyright (c) 2014, Fraunhofer IPA
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -35,22 +36,25 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  *********************************************************************/
 
-#ifndef FORWARD_COMMAND_CONTROLLER_FORWARD_COMMAND_CONTROLLER_H
-#define FORWARD_COMMAND_CONTROLLER_FORWARD_COMMAND_CONTROLLER_H
+#ifndef FORWARD_COMMAND_CONTROLLER_FORWARD_JOINT_GROUP_COMMAND_CONTROLLER_H
+#define FORWARD_COMMAND_CONTROLLER_FORWARD_JOINT_GROUP_COMMAND_CONTROLLER_H
+
+#include <vector>
+#include <string>
 
 #include <ros/node_handle.h>
 #include <hardware_interface/joint_command_interface.h>
 #include <controller_interface/controller.h>
-#include <std_msgs/Float64.h>
+#include <std_msgs/Float64MultiArray.h>
 
 
 namespace forward_command_controller
 {
 
 /**
- * \brief Single joint controller.
+ * \brief Forward command controller for a set of joints.
  *
- * This class passes the command signal down to the joint.
+ * This class forwards the command signal down to a set of joints.
  * Command signal and joint hardware interface are of the same type, e.g. effort commands for an effort-controlled
  * joint.
  *
@@ -59,40 +63,70 @@ namespace forward_command_controller
  * \section ROS interface
  *
  * \param type hardware interface type.
- * \param joint Name of the joint to control.
+ * \param joints Names of the joints to control.
  *
  * Subscribes to:
- * - \b command (std_msgs::Float64) : The joint command to apply.
+ * - \b command (std_msgs::Float64MultiArray) : The joint commands to apply.
  */
 template <class T>
-class ForwardCommandController: public controller_interface::Controller<T>
+class ForwardJointGroupCommandController: public controller_interface::Controller<T>
 {
 public:
-  ForwardCommandController() : command_(0) {}
-  ~ForwardCommandController() {sub_command_.shutdown();}
+  ForwardJointGroupCommandController() { commands_.clear(); }
+  ~ForwardJointGroupCommandController() {sub_command_.shutdown();}
 
   bool init(T* hw, ros::NodeHandle &n)
   {
-    std::string joint_name;
-    if (!n.getParam("joint", joint_name))
+    // List of controlled joints
+    std::string param_name = "joints";
+    if(!n.getParam(param_name, joint_names_))
     {
-      ROS_ERROR("No joint given (namespace: %s)", n.getNamespace().c_str());
+      ROS_ERROR_STREAM("Failed to getParam '" << param_name << "' (namespace: " << n.getNamespace() << ").");
       return false;
     }
-    joint_ = hw->getHandle(joint_name);
-    sub_command_ = n.subscribe<std_msgs::Float64>("command", 1, &ForwardCommandController::commandCB, this);
+    n_joints_ = joint_names_.size();
+    
+    for(unsigned int i=0; i<n_joints_; i++)
+    {
+      try
+      {
+        joints_.push_back(hw->getHandle(joint_names_[i]));  
+      }
+      catch (const hardware_interface::HardwareInterfaceException& e)
+      {
+        ROS_ERROR_STREAM("Exception thrown: " << e.what());
+        return false;
+      }
+    }
+    
+    sub_command_ = n.subscribe<std_msgs::Float64MultiArray>("command", 1, &ForwardJointGroupCommandController::commandCB, this);
     return true;
   }
 
   void starting(const ros::Time& time);
-  void update(const ros::Time& time, const ros::Duration& period) {joint_.setCommand(command_);}
+  void update(const ros::Time& time, const ros::Duration& period) 
+  {
+    for(unsigned int i=0; i<n_joints_; i++)
+    {  joints_[i].setCommand(commands_[i]);  }
+  }
 
-  hardware_interface::JointHandle joint_;
-  double command_;
+  std::vector< std::string > joint_names_;
+  std::vector< hardware_interface::JointHandle > joints_;
+  std::vector< double > commands_;
+  unsigned int n_joints_;
 
 private:
   ros::Subscriber sub_command_;
-  void commandCB(const std_msgs::Float64ConstPtr& msg) {command_ = msg->data;}
+  void commandCB(const std_msgs::Float64MultiArrayConstPtr& msg) 
+  {
+    if(msg->data.size()!=n_joints_)
+    { 
+      ROS_ERROR_STREAM("Dimension of command (" << msg->data.size() << ") does not match number of joints (" << n_joints_ << ")! Not executing!");
+      return; 
+    }
+    for(unsigned int i=0; i<n_joints_; i++)
+    {  commands_[i] = msg->data[i];  }
+  }
 };
 
 }
