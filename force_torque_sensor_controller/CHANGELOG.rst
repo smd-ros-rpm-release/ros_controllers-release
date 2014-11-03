@@ -2,6 +2,9 @@
 Changelog for package force_torque_sensor_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.9.1 (2014-11-03)
+------------------
+
 0.9.0 (2014-10-31)
 ------------------
 * Buildsystem fixes
