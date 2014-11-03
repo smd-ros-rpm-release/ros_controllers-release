@@ -2,6 +2,11 @@
 Changelog for package position_controllers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.9.1 (2014-11-03)
+------------------
+* Update package maintainers
+* Contributors: Adolfo Rodriguez Tsouroukdissian
+
 0.9.0 (2014-10-31)
 ------------------
 * New controller: position_controllers/JointGroupPositionController (multi-joint)
