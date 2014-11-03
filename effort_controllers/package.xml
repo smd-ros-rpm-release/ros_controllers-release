@@ -1,8 +1,8 @@
 <package>
   <name>effort_controllers</name>
-  <version>0.9.0</version>
+  <version>0.9.1</version>
   <description>effort_controllers</description>
-  <maintainer email="vijay@hidof.com">Vijay Pradeep</maintainer>
+  <maintainer email="adolfo.rodriguez@pal-robotics.com">Adolfo Rodriguez Tsouroukdissian</maintainer>
 
   <license>BSD</license>
 
